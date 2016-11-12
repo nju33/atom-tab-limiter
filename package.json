@@ -1,0 +1,14 @@
+{
+  "name": "tab-limiter",
+  "version": "1.0.0",
+  "description": "Tab limiter on Atom",
+  "main": "./lib/tab-limiter",
+  "repository": "https://github.com/nju33/atom-tab-limiter",
+  "license": "MIT",
+  "readme": "README.md",
+  "engines": {
+    "atom": "*"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
