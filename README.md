@@ -12,8 +12,10 @@ apm install tab-limiter
 
 Don't have to do anything!  
 If it exceeds the upper limit of the specified tab,
-it will automatically close from the left tab.
-However, skipping files being edited
+it will automatically close from the left tab. However, in the case of the following rule, it is passed through without being deleted.
+
+- When editing a file
+- When pinned is included in the tab (for [pinned-tab](https://atom.io/packages/pinned-tabs) package)
 
 ## Option
 
