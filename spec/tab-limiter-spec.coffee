@@ -39,3 +39,22 @@ describe "Tab limiter", ->
             expect(pane.items.length).toBe(4)
             expect(pane.items[0].getText()).toBe('test')
           , 0
+
+  it "Pass through Assosiated tab contains .pinned", ->
+    waitsForPromise ->
+      atom.workspace.open().then (textEditor) ->
+        textEditor.setText 'test'
+        atom.views.getView(textEditor).classList.add 'pinned'
+
+        promises = [
+          atom.workspace.open()
+          atom.workspace.open()
+          atom.workspace.open()
+        ]
+        Promise.all promises
+        .then ->
+          setTimeout ->
+            pane = atom.workspace.getActivePane()
+            expect(pane.items.length).toBe(4)
+            expect(pane.items[0].getText()).toBe('test')
+          , 0
