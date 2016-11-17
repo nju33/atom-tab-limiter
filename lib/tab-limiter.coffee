@@ -14,8 +14,8 @@ module.exports =
       upperLimit = atom.config.get 'tab-limiter.upperLimit'
       return if index < upperLimit
 
-      for item in pane.items
-        if item.isModified()
+      for item, idx in pane.items
+        if item.isModified() or @containsPinnedClassOnAssociatedTab item, idx
           continue
 
         pane.destroyItem item
@@ -23,3 +23,10 @@ module.exports =
 
   deactivate: ->
     @subscription.dispose()
+
+  containsPinnedClassOnAssociatedTab: (item, idx) ->
+    itemView = atom.views.getView item
+    if itemView.parentElement?.previousElementSibling?
+      tab = itemView.parentElement?.previousElementSibling?.children[idx]
+      return tab.classList.contains 'pinned'
+    false
