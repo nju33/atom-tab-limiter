@@ -10,16 +10,18 @@ module.exports =
   activate: (state) ->
     @subscription = new CompositeDisposable()
 
-    @subscription.add atom.workspace.onDidAddPaneItem ({item, pane, index}) =>
+    @subscription.add atom.workspace.onDidAddPaneItem ({item, pane}) =>
       upperLimit = atom.config.get 'tab-limiter.upperLimit'
-      return if index < upperLimit
+      size = pane.items.length
+      return if size < upperLimit
 
       for item, idx in pane.items
         if item.isModified() or @containsPinnedClassOnAssociatedTab item, idx
           continue
 
         pane.destroyItem item
-        break
+        size--
+        break if size >= upperLimit
 
   deactivate: ->
     @subscription.dispose()
