@@ -13,22 +13,23 @@ module.exports =
     @subscription.add atom.workspace.onDidAddPaneItem ({item, pane}) =>
       upperLimit = atom.config.get 'tab-limiter.upperLimit'
       size = pane.items.length
-      return if size < upperLimit
+      filterdItems = pane.items.filter (item, idx) =>
+        not (item.isModified() or @containsPinnedClassOnAssociatedTab item, idx)
+      length = filterdItems.length
 
-      for item, idx in pane.items
-        if item.isModified() or @containsPinnedClassOnAssociatedTab item, idx
-          continue
+      return if length < upperLimit
 
+      for item, idx in filterdItems
         pane.destroyItem item
-        size--
-        break if size >= upperLimit
+        length--
+        break if length <= upperLimit
 
   deactivate: ->
     @subscription.dispose()
 
   containsPinnedClassOnAssociatedTab: (item, idx) ->
     itemView = atom.views.getView item
-    if itemView.parentElement?.previousElementSibling?
-      tab = itemView.parentElement?.previousElementSibling?.children[idx]
+    if itemView?.parentElement?.previousElementSibling?
+      tab = itemView.parentElement.previousElementSibling.children[idx]
       return tab.classList.contains 'pinned'
     false
