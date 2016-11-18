@@ -14,6 +14,7 @@ module.exports =
       upperLimit = atom.config.get 'tab-limiter.upperLimit'
       size = pane.items.length
       filterdItems = pane.items.filter (item, idx) =>
+        return true unless 'isModified' in item
         not (item.isModified() or @containsPinnedClassOnAssociatedTab item, idx)
       length = filterdItems.length
 
