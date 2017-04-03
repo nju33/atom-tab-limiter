@@ -1,4 +1,4 @@
-# Atom Tab Limiter
+# Tab Limiter
 
 ![Atom Tab Limiter ](https://github.com/nju33/atom-tab-limiter/blob/master/screenshot.gif?raw=true)
 
@@ -10,15 +10,20 @@ apm install tab-limiter
 
 ## Usage
 
-Don't have to do anything!  
-If it exceeds the upper limit of the specified tab,
-it will automatically close from the left tab. However, in the case of the following rule, it is passed through without being deleted.
+When the number of tabs (except editing) exceeds the upper limit, the tab is closed automatically.
 
-- When editing a file
-- When pinned is included in the tab (for [pinned-tab](https://atom.io/packages/pinned-tabs) package)
+This will notify you when the tab is closed. You can open that tab again by click the 'Reopen' button on this notification.  
+(It is not notified when it is an untitled tab or a config tab.)
+
 
 ## Option
 
 - `upperLimit`  
   default: `10`  
   Specify upper limit of tab
+
+## Lisence
+
+The MIT License (MIT)
+
+Copyright (c) 2017 nju33 <nju33.ki@gmail.com>
